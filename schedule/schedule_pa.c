@@ -43,7 +43,6 @@ void schedule() {
             while (current != NULL) {
                 Task *t = current->task;
 
-                // Executa a task inteira (sem quantum)
                 int exec_time = t->remaining_burst;  
                     run_aging(t, exec_time);
                 
@@ -52,7 +51,7 @@ void schedule() {
 
                 struct node *next = current->next;
                 if(t->priority != 0)
-                printf("✅ Task %s finalizada.\n", t->name);
+                printf("Task %s finalizada.\n", t->name);
                 delete(&queues[p], t);
 
                 // Aging: percorre todas as filas de prioridades menores
@@ -67,8 +66,8 @@ void schedule() {
                             aging_task->waiting_time += exec_time;
                         }
 
-                        if (aging_task->waiting_time >= AGING_LIMIT && aging_task->priority > MIN_PRIORITY) {
-                            printf("🔼 Task %s subiu de prioridade de %d para %d.\n",
+                        if (aging_task-> >waiting_time= AGING_LIMIT && aging_task->priority > MIN_PRIORITY) {
+                            printf("Task %s subiu de prioridade de %d para %d.\n",
                                    aging_task->name, aging_task->priority, aging_task->priority - 1);
 
                             remove_from_list(&queues[level], aging_task);

@@ -24,7 +24,7 @@ void add(char *name, int priority, int burst) {
     insert(&queues[priority], newTask);
 }
 
-// Função principal do escalonador RR_P
+// Função do escalonador RR_P
 void schedule() {
     int tasks_remaining = 1;
 
@@ -44,13 +44,13 @@ void schedule() {
                      exec_time = TIME_QUANTUM;
                     }   
 
-                run(t, exec_time);
+                run(t, exec_time); //printa na tela o estado atual da task
                 t->remaining_burst -= exec_time;
 
                 struct node *next = current->next;
 
                 if (t->remaining_burst <= 0) {
-                    printf("✅ Task %s finalizada.\n", t->name);
+                    printf("Task %s finalizada.\n", t->name); //avisa que terminou a task e retira ela da lista
                     delete(&queues[p], t);
                 }
 

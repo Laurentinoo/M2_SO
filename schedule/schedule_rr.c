@@ -9,11 +9,10 @@
 
 #define TIME_QUANTUM 10
 
-
-// Lista de task
+// Lista das task
 struct node *task_list = NULL;
 
-// Função para adicionar uma task na fila
+// função de adicionar uma task na fila
 void add(char *name, int priority, int burst) {
     Task *newTask = malloc(sizeof(Task));
     newTask->name = strdup(name);
@@ -24,7 +23,7 @@ void add(char *name, int priority, int burst) {
     insert(&task_list, newTask);
 }
 
-// Função do escalonador Round Robin
+// Função do escalonador RR
 void schedule() {
     while (task_list != NULL) {
         struct node *current = task_list;
@@ -39,13 +38,13 @@ void schedule() {
                  exec_time = TIME_QUANTUM;
                 }               
 
-            run(t, exec_time);
+            run(t, exec_time); //printa a situacao da task
             t->remaining_burst -= exec_time;
 
             struct node *next = current->next;
             
             if (t->remaining_burst <= 0) {
-                printf("✅ Task %s finalizada.\n", t->name);
+                printf("Task %s finalizada.\n", t->name); //avisa que a task terminou e remove ela da lista de task
                 delete(&task_list, t);
             }
 

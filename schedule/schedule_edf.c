@@ -24,7 +24,6 @@ volatile int tick = 0;
 // Função da thread que simula o timer de hardware
 void *timer_thread(void *arg) {
     int interval = *((int *)arg);
-
     while (1) {
         sleep(interval); // Simula um tick 
         tick = 1;
@@ -40,7 +39,7 @@ void add_edf(char *name, int priority, int burst, int deadline) {
     newTask->burst = burst;
     newTask->remaining_burst = burst;
     newTask->deadline = deadline;
-    newTask->start_time = clock_time; // Marca quando foi criada-------------------------
+    newTask->start_time = clock_time; // Marca quando foi criada
 
     insert(&task_list, newTask);
 }
@@ -83,7 +82,7 @@ void schedule() {
             struct node *temp = task_list;
             while (temp != NULL) {
                 if (clock_time > temp->task->deadline) {
-                    printf("❌  Task [%s] perdeu o deadline! (Deadline: %d)\n", 
+                    printf("Task [%s] perdeu o deadline! (Deadline: %d)\n", 
                            temp->task->name, temp->task->deadline);
                 }
                 temp = temp->next;
@@ -102,7 +101,7 @@ void schedule() {
             t->remaining_burst -= exec_time;
 
             if (t->remaining_burst <= 0) {
-                printf("✅ Task [%s] finalizada.\n", t->name);
+                printf("Task [%s] finalizada.\n", t->name);
                 delete(&task_list, t);
             }
         }

@@ -41,11 +41,11 @@ int main(int argc, char *argv[])
         burst = atoi(strsep(&temp,","));
 
         // Only to EDF algorithm
-        // deadline = atoi(strsep(&temp, ","));
-        // add_edf(name,priority,burst, deadline); 
+     deadline = atoi(strsep(&temp, ","));
+     add_edf(name,priority,burst, deadline); 
 
         // add the task to the scheduler's list of tasks
-        add(name,priority,burst);
+     //  add(name,priority,burst);
      
         free(temp);
     }
