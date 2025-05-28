@@ -66,7 +66,7 @@ void schedule() {
                             aging_task->waiting_time += exec_time;
                         }
 
-                        if (aging_task-> >waiting_time= AGING_LIMIT && aging_task->priority > MIN_PRIORITY) {
+                        if (aging_task-> waiting_time >= AGING_LIMIT && aging_task->priority > MIN_PRIORITY) {
                             printf("Task %s subiu de prioridade de %d para %d.\n",
                                    aging_task->name, aging_task->priority, aging_task->priority - 1);
 
