@@ -20,20 +20,18 @@ void insert(struct node **head, Task *newTask) {
     *head = newNode;
 }
 
-// delete the selected task from the list
-
 void delete(struct node **head, Task *task) {
     struct node *temp = *head;
     struct node *prev = NULL;
 
     while (temp != NULL) {
-        if (strcmp(task->name, temp->task->name) == 0) {
+        if (task == temp->task) { 
             if (prev == NULL) {
                 *head = temp->next;
             } else {
                 prev->next = temp->next;
             }
-            
+
             free(temp->task->name);
             free(temp->task);
             free(temp);
@@ -43,6 +41,7 @@ void delete(struct node **head, Task *task) {
         temp = temp->next;
     }
 }
+
 
 
 // traverse the list
@@ -69,7 +68,7 @@ void remove_from_list(struct node **head, Task *task) {
                 prev->next = temp->next;
             }
 
-            free(temp);  // Libera o nó, mas NÃO a task
+            free(temp);
             return;
         }
         prev = temp;

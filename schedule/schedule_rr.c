@@ -9,10 +9,11 @@
 
 #define TIME_QUANTUM 10
 
-// Lista de tarefas (fila de aptos)
+
+// Lista de task
 struct node *task_list = NULL;
 
-// Função para adicionar uma tarefa na fila
+// Função para adicionar uma task na fila
 void add(char *name, int priority, int burst) {
     Task *newTask = malloc(sizeof(Task));
     newTask->name = strdup(name);
@@ -31,17 +32,20 @@ void schedule() {
         while (current != NULL) {
             Task *t = current->task;
 
-            int exec_time = (t->remaining_burst < TIME_QUANTUM) ? t->remaining_burst : TIME_QUANTUM;
+           int exec_time;
+            if (t->remaining_burst < TIME_QUANTUM) {
+                 exec_time = t->remaining_burst;
+            } else {
+                 exec_time = TIME_QUANTUM;
+                }               
 
             run(t, exec_time);
-
             t->remaining_burst -= exec_time;
 
-            // Guarda o próximo antes de deletar
             struct node *next = current->next;
-
+            
             if (t->remaining_burst <= 0) {
-                printf("Task %s finalizada.\n", t->name);
+                printf("✅ Task %s finalizada.\n", t->name);
                 delete(&task_list, t);
             }
 

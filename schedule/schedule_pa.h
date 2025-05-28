@@ -4,7 +4,7 @@
 #define MIN_PRIORITY 1
 #define MAX_PRIORITY 10
 
-void add_aging(char *name, int priority, int burst);
-void schedule_aging();
+void add(char *name, int priority, int burst);
+void schedule();
 
 #endif

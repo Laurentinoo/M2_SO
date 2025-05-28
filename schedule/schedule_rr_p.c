@@ -9,6 +9,7 @@
 
 #define TIME_QUANTUM 10
 
+
 // Uma lista para cada prioridade
 struct node *queues[MAX_PRIORITY + 1];  // Índice de 1 a 10
 
@@ -36,16 +37,20 @@ void schedule() {
             while (current != NULL) {
                 Task *t = current->task;
 
-                int exec_time = (t->remaining_burst < TIME_QUANTUM) ? t->remaining_burst : TIME_QUANTUM;
+               int exec_time;
+                if (t->remaining_burst < TIME_QUANTUM) {
+                    exec_time = t->remaining_burst;
+                 } else {
+                     exec_time = TIME_QUANTUM;
+                    }   
 
                 run(t, exec_time);
-
                 t->remaining_burst -= exec_time;
 
                 struct node *next = current->next;
 
                 if (t->remaining_burst <= 0) {
-                    printf("Task %s finalizada.\n", t->name);
+                    printf("✅ Task %s finalizada.\n", t->name);
                     delete(&queues[p], t);
                 }
 
@@ -54,7 +59,6 @@ void schedule() {
 
             if (queues[p] != NULL) {
                 tasks_remaining = 1;
-                // Se encontrou tarefas ainda nesta prioridade, não verifica prioridades mais baixas neste ciclo
                 break;
             }
         }

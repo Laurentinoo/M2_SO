@@ -2,6 +2,6 @@
 #define SCHEDULE_EDF_H
 
 void add_edf(char *name, int priority, int burst, int deadline);
-void schedule_edf();
+void schedule();
 
 #endif
